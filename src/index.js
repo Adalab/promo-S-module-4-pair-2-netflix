@@ -13,6 +13,8 @@ server.listen(serverPort, () => {
 });
 
 const mysql = require('mysql2/promise');
+let connection;
+
 mysql
   .createConnection({
     host: 'localhost',
@@ -20,25 +22,27 @@ mysql
     user: 'root',
     password: 'Irene1',
   })
-  .then(connection => {
+  .then((conn) => {
+    connection=conn;
     connection
     .connect()
     .catch((err) => {
     console.error('Error de conexion: ' + err.stack);
     })
-    .then(() => {
-    return connection.query('SELECT * FROM movies');
-    })
-    .then(([results, fields]) => {
-    results.forEach((result) => {
-    console.log(result);
-    });
-    })
+    
+    
     .catch((err) => {
     console.error('Error en la query: ' + err.stack);
     });
     })
 
-    app.get('/', function(req,res){
-     // VAMOS AQUÍ. NECESITAMOS HHACER UN ENDPOINT PARA QUE IMPRIMA, LO DE DESPUÉS ESTÁ HECHO PERO ESTO FALTABA. sOLO EL ENDPOINT
+    server.get('/movies', function(req,res){
+      connection
+      .query('SELECT * FROM movies')
+      .then(([results, fields]) => {
+        res.json({success: true, movies: results});
+      })
+      .catch((err) => {
+        throw err;
+      });
     })
