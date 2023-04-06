@@ -17,14 +17,14 @@ const AllMovies = props => {
         <div className="movies__filters--gender">
           <label htmlFor="filterGender">Filtrar por género</label>
           <select
-            className="form__input-text"
+            className="form__input-text js-select"
             id="filterGender"
             name="gender"
             value={props.allMoviesOptionGender}
             onChange={handleOptions}
           >
             <option value="">Todas</option>
-            <option value="Drama">Drama</option>
+            <option value="Crimen">Crimen</option>
             <option value="Comedia">Comedia</option>
           </select>
         </div>
