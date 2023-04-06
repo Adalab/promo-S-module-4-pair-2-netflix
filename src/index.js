@@ -78,3 +78,28 @@ mysql
       });
     })
     
+
+    //Login de la pagina
+    
+    server.post('/login', function (req, res) {
+      connection
+    .query('SELECT * FROM users WHERE email = ? AND password = ?;', [req.body.email, req.body.password])
+    .then(([results, fields]) => {
+      // Devolvemos el resultado de la query:
+      console.log(results)
+      if (results.length === 1) {
+        res.json({
+          success: true,
+          userId: results[0].idUSer
+        });
+      } else {
+        res.json({
+          success: false,
+          errorMessage: "Usuaria/o no encontrada/o"
+        });
+      }
+    })
+    .catch((err) => {
+      throw err;
+    });
+});
