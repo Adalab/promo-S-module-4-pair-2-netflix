@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require ('path');
 
 // create and config server
 const server = express();
@@ -103,3 +104,8 @@ mysql
       throw err;
     });
 });
+
+//Configurar servidor de estaticos
+
+const staticServerPath = './src/public-react';
+server.use (express.static(staticServerPath));

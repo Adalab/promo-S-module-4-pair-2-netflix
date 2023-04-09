@@ -44,7 +44,7 @@ Por favor marca a continuación los ejercicios que hayáis terminado:
 
 **4.7 Express JS III:**
 
-- [ ] 1. Servidor de estáticos para React
+- [x] 1. Servidor de estáticos para React
 - [ ] 2. Servidor de estáticos para las fotos
 - [ ] 3. Crea un motor de plantillas
 
