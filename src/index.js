@@ -109,3 +109,28 @@ mysql
 
 const staticServerPath = './src/public-react';
 server.use (express.static(staticServerPath));
+
+//Configurar servidor de estaticos para fotos
+
+const staticImagesPathWeb = './src/public-movies-images';
+server.use (express.static(staticImagesPathWeb));
+
+//Endpoint para motor de plantillas
+
+server.get('/movie/:id', (req, res) => {
+  const URLParams = req.params.id;
+  console.log(URLParams);
+
+  connection
+  .query('SELECT * FROM movies WHERE id = ?', [URLParams])
+  
+  .then(([foundMovie, fields]) => {
+        console.log(foundMovie);
+        res.json(foundMovie);
+      })
+      .catch((err) => {
+        throw err;
+      });
+  
+
+});
