@@ -51,8 +51,8 @@ Por favor marca a continuación los ejercicios que hayáis terminado:
   - [x] 1. Obtener el id de la película a renderizar
   - [x] 2. Obtener la película
   - [X] 3. Renderiza una página cualquiera
-  - [ ] 4. Renderiza la película
-  - [ ] 5. Añade estilos
+  - [x] 4. Renderiza la película
+  - [x] 5. Añade estilos
 
 **4.8 Mongo I:**
 

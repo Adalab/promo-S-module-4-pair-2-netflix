@@ -115,6 +115,11 @@ server.use (express.static(staticServerPath));
 const staticImagesPathWeb = './src/public-movies-images';
 server.use (express.static(staticImagesPathWeb));
 
+//Configurar servidor de estaticos para estilos
+
+const staticStyles = './src/public-styles';
+server.use (express.static(staticStyles));
+
 //Configurar motor de plantillas
 server.set('view engine', 'ejs');
 
@@ -128,10 +133,9 @@ server.get('/movie/:id', (req, res) => {
   .query('SELECT * FROM movies WHERE id = ?', [URLParams])
   
   .then(([foundMovie, fields]) => {
-        // console.log(foundMovie);
-        res.render('movie', foundMovie[0]); //ESTA LINEA DA ERROR
-        res.json(foundMovie);
-        
+        console.log(foundMovie);
+        res.render('movie', foundMovie[0]);
+        // res.json(foundMovie);        
       })
       .catch((err) => {
         throw err;
