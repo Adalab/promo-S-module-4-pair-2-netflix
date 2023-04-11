@@ -14,13 +14,13 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `netflix` DEFAULT CHARACTER SET utf8 ;
+USE `netflix` ;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`MOVIES`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`MOVIES` (
+CREATE TABLE IF NOT EXISTS `movies` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(45) NOT NULL,
   `genre` VARCHAR(45) NOT NULL,
@@ -34,7 +34,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`USERS`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`USERS` (
+CREATE TABLE IF NOT EXISTS `users` (
   `idUser` INT NOT NULL AUTO_INCREMENT,
   `user` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
@@ -48,7 +48,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`ACTORS`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`ACTORS` (
+CREATE TABLE IF NOT EXISTS `actors` (
   `idActor` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `lastname` VARCHAR(45) NOT NULL,
@@ -61,21 +61,21 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`rel_movie_actors`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`rel_movie_actors` (
+CREATE TABLE IF NOT EXISTS `rel_movie_actors` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `MOVIES_id` INT NOT NULL,
-  `ACTORS_idActor` INT NOT NULL,
-  PRIMARY KEY (`id`, `MOVIES_id`, `ACTORS_idActor`),
-  INDEX `fk_ACTORS_has_MOVIES_MOVIES1_idx` (`MOVIES_id` ASC) VISIBLE,
-  INDEX `fk_ACTORS_has_MOVIES_ACTORS_idx` (`ACTORS_idActor` ASC) VISIBLE,
-  CONSTRAINT `fk_ACTORS_has_MOVIES_ACTORS`
-    FOREIGN KEY (`ACTORS_idActor`)
-    REFERENCES `mydb`.`ACTORS` (`idActor`)
+  `actors_idActor` INT NOT NULL,
+  PRIMARY KEY (`id`, `movies_id`, `actors_idActor`),
+  INDEX `fk_actors_has_movies_movies1_idx` (`movies_id` ASC) VISIBLE,
+  INDEX `fk_actors_has_movies_actors_idx` (`actors_idActor` ASC) VISIBLE,
+  CONSTRAINT `fk_actors_has_movies_actors`
+    FOREIGN KEY (`actors_idActor`)
+    REFERENCES `actors` (`idActor`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ACTORS_has_MOVIES_MOVIES1`
-    FOREIGN KEY (`MOVIES_id`)
-    REFERENCES `mydb`.`MOVIES` (`id`)
+  CONSTRAINT `fk_actors_has_movies_movies1`
+    FOREIGN KEY (`movies_id`)
+    REFERENCES `movies` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -84,21 +84,21 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`rel_movies_users`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`rel_movies_users` (
+CREATE TABLE IF NOT EXISTS `rel_movies_users` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `USERS_idUser` INT NOT NULL,
-  `MOVIES_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `USERS_idUser`, `MOVIES_id`),
-  INDEX `fk_USERS_has_MOVIES_MOVIES1_idx` (`MOVIES_id` ASC) VISIBLE,
-  INDEX `fk_USERS_has_MOVIES_USERS1_idx` (`USERS_idUser` ASC) VISIBLE,
-  CONSTRAINT `fk_USERS_has_MOVIES_USERS1`
-    FOREIGN KEY (`USERS_idUser`)
-    REFERENCES `mydb`.`USERS` (`idUser`)
+  `users_idUser` INT NOT NULL,
+  `movies_id` INT NOT NULL,
+  PRIMARY KEY (`id`, `users_idUser`, `movies_id`),
+  INDEX `fk_users_has_movies_movies1_idx` (`movies_id` ASC) VISIBLE,
+  INDEX `fk_users_has_movies_users1_idx` (`users_idUser` ASC) VISIBLE,
+  CONSTRAINT `fk_users_has_movies_users1`
+    FOREIGN KEY (`users_idUser`)
+    REFERENCES `users` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_USERS_has_MOVIES_MOVIES1`
-    FOREIGN KEY (`MOVIES_id`)
-    REFERENCES `mydb`.`MOVIES` (`id`)
+  CONSTRAINT `fk_users_has_movies_movies1`
+    FOREIGN KEY (`movies_id`)
+    REFERENCES `movies` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

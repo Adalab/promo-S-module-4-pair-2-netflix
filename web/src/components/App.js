@@ -38,8 +38,8 @@ const App = () => {
       gender: allMoviesOptionGender,
       sort: allMoviesOptionSort
     };
-    apiMovies.getMoviesFromApi(params).then(response => {
-      setAppMovies(response.movies);
+    apiMovies.getMoviesFromApi(params.gender, params.sort).then(response => {
+      setAppMovies(response);
     });
   }, [allMoviesOptionGender, allMoviesOptionSort]);
 
